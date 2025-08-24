@@ -68,11 +68,11 @@ export default function RegisterPage() {
               <Instagram className="w-8 h-8 text-white" />
             </div>
             <div className="bg-clip-text text-3xl font-medium text-transparent tracking-tight bg-gradient-to-tr from-orange-400 to-yellow-500 font-serif">
-              InstaDash
+              Shotzspot
             </div>
           </div>
           <h1 className="text-2xl font-normal text-gray-100 tracking-tight font-serif">Create Account</h1>
-          <p className="text-sm text-gray-400 mt-2">Join InstaDash to manage Instagram profiles</p>
+          <p className="text-sm text-gray-400 mt-2">Join Shotzspot to manage Instagram profiles</p>
         </div>
 
         {/* Register Form */}
@@ -202,7 +202,7 @@ export default function RegisterPage() {
 
         {/* Footer */}
         <div className="text-center">
-          <p className="text-xs text-gray-500">© 2025 InstaDash. Secure Instagram profile management.</p>
+          <p className="text-xs text-gray-500">© 2025 Shotzspot. Secure Instagram profile management.</p>
         </div>
       </div>
     </div>
