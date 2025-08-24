@@ -63,14 +63,6 @@ export default function RegisterPage() {
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="p-3 bg-gradient-to-tr from-orange-400 to-yellow-500 rounded-xl">
-              <Instagram className="w-8 h-8 text-white" />
-            </div>
-            <div className="bg-clip-text text-3xl font-medium text-transparent tracking-tight bg-gradient-to-tr from-orange-400 to-yellow-500 font-serif">
-              Shotzspot
-            </div>
-          </div>
           <h1 className="text-2xl font-normal text-gray-100 tracking-tight font-serif">Create Account</h1>
           <p className="text-sm text-gray-400 mt-2">Join Shotzspot to manage Instagram profiles</p>
         </div>

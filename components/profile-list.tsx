@@ -115,7 +115,7 @@ export function ProfileList({
     })
   }, [profiles, sortConfig])
 
-  if(true) {
+  if(isAILoading) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
         <AIInfluencerScrollerLoader />
