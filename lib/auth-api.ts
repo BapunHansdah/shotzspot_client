@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://52.90.164.154/api"
+const API_BASE_URL = "https://dashboard.shotzspot.com/api"
 
 export interface LoginCredentials {
   email: string

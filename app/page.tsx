@@ -10,7 +10,7 @@ import { useAuth } from "@/contexts/auth-context";
 import type { InstagramProfile } from "@/types/profile";
 import AiSearch from "@/components/ai-search";
 
-const API_BASE_URL = "http://52.90.164.154/api";
+const API_BASE_URL = "https://dashboard.shotzspot.com/api";
 
 export default function Dashboard() {
   const [profiles, setProfiles] = useState<InstagramProfile[]>([]);
