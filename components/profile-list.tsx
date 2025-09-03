@@ -1,30 +1,44 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import type { InstagramProfile } from "@/types/profile"
-import { Users, Image, ChevronLeft, ChevronRight, Verified, Lock, Building, Eye, Heart, MessageCircle, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react"
-import { useState, useMemo } from "react"
-import AIInfluencerScrollerLoader from "./list-animation"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import type { InstagramProfile } from "@/types/profile";
+import {
+  Users,
+  Image,
+  ChevronLeft,
+  ChevronRight,
+  Verified,
+  Lock,
+  Building,
+  Eye,
+  Heart,
+  MessageCircle,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
+} from "lucide-react";
+import { useState, useMemo } from "react";
+import AIInfluencerScrollerLoader from "./list-animation";
 
-type SortField = 'followers' | 'posts' | 'engagement' | 'category' | 'username'
-type SortOrder = 'asc' | 'desc'
+type SortField = "followers" | "posts" | "engagement" | "category" | "username";
+type SortOrder = "asc" | "desc";
 
 interface SortConfig {
-  field: SortField
-  order: SortOrder
+  field: SortField;
+  order: SortOrder;
 }
 
 interface ProfileListProps {
-  profiles: InstagramProfile[]
-  loading: boolean
-  currentPage: number
-  totalPages: number
-  onProfileClick: (profile: InstagramProfile) => void
-  onPageChange: (page: number) => void
-  isAILoading: boolean
+  profiles: InstagramProfile[];
+  loading: boolean;
+  currentPage: number;
+  totalPages: number;
+  onProfileClick: (profile: InstagramProfile) => void;
+  onPageChange: (page: number) => void;
+  isAILoading: boolean;
 }
 
 export function ProfileList({
@@ -34,93 +48,128 @@ export function ProfileList({
   totalPages,
   onProfileClick,
   onPageChange,
-  isAILoading
+  isAILoading,
 }: ProfileListProps) {
-  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null)
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
 
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
-    if (num >= 1000) return `${(num / 1000).toFixed(1)}K`
-    return num.toString()
+  // const profile.simplified_profile.basic_info.profile_pic_ur
+  function isMediaUrl(url: string) {
+    return isImageUrl(url) || isVideoUrl(url);
   }
 
+  function isImageUrl(url: string) {
+    return (
+      typeof url === "string" &&
+      /\.(jpg|jpeg|png|gif|bmp|webp|svg)(\?|$)/i.test(url)
+    );
+  }
+
+  function isVideoUrl(url: string) {
+    return (
+      typeof url === "string" &&
+      /\.(mp4|webm|ogg|avi|mov|wmv|flv|mkv)(\?|$)/i.test(url)
+    );
+  }
+
+  const proxyUrl = (url: string) => {
+    const encodedUrl = encodeURIComponent(url);
+    const proxiedUrl = "https://images.weserv.nl/?url=" + encodedUrl;
+    return proxiedUrl;
+  };
+
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+    return num.toString();
+  };
+
   const handleSort = (field: SortField) => {
-    setSortConfig(prevConfig => {
+    setSortConfig((prevConfig) => {
       if (prevConfig?.field === field) {
         // If clicking the same field, toggle order
         return {
           field,
-          order: prevConfig.order === 'asc' ? 'desc' : 'asc'
-        }
+          order: prevConfig.order === "asc" ? "desc" : "asc",
+        };
       } else {
         // If clicking a new field, default to desc for numeric fields, asc for text fields
         return {
           field,
-          order: ['followers', 'posts', 'engagement'].includes(field) ? 'desc' : 'asc'
-        }
+          order: ["followers", "posts", "engagement"].includes(field)
+            ? "desc"
+            : "asc",
+        };
       }
-    })
-  }
+    });
+  };
 
   const getSortIcon = (field: SortField) => {
     if (!sortConfig || sortConfig.field !== field) {
-      return <ArrowUpDown className="w-3 h-3 text-slate-400" />
+      return <ArrowUpDown className="w-3 h-3 text-slate-400" />;
     }
-    return sortConfig.order === 'asc' 
-      ? <ArrowUp className="w-3 h-3 text-indigo-400" />
-      : <ArrowDown className="w-3 h-3 text-indigo-400" />
-  }
+    return sortConfig.order === "asc" ? (
+      <ArrowUp className="w-3 h-3 text-indigo-400" />
+    ) : (
+      <ArrowDown className="w-3 h-3 text-indigo-400" />
+    );
+  };
 
   const sortedProfiles = useMemo(() => {
-    if (!sortConfig) return profiles
+    if (!sortConfig) return profiles;
 
     return [...profiles].sort((a, b) => {
-      let aValue: any
-      let bValue: any
+      let aValue: any;
+      let bValue: any;
 
       switch (sortConfig.field) {
-        case 'followers':
-          aValue = a.simplified_profile.stats.followers_count
-          bValue = b.simplified_profile.stats.followers_count
-          break
-        case 'posts':
-          aValue = a.simplified_profile.stats.posts_count
-          bValue = b.simplified_profile.stats.posts_count
-          break
-        case 'engagement':
+        case "followers":
+          aValue = a.simplified_profile.stats.followers_count;
+          bValue = b.simplified_profile.stats.followers_count;
+          break;
+        case "posts":
+          aValue = a.simplified_profile.stats.posts_count;
+          bValue = b.simplified_profile.stats.posts_count;
+          break;
+        case "engagement":
           // Calculate engagement rate (this is a mock calculation)
-          aValue = (a.simplified_profile.stats.followers_count / 100) * Math.random() * 5
-          bValue = (b.simplified_profile.stats.followers_count / 100) * Math.random() * 5
-          break
-        case 'category':
-          aValue = a.simplified_profile.business_info?.category_name || ''
-          bValue = b.simplified_profile.business_info?.category_name || ''
-          break
-        case 'username':
-          aValue = a.simplified_profile.basic_info.username.toLowerCase()
-          bValue = b.simplified_profile.basic_info.username.toLowerCase()
-          break
+          aValue =
+            (a.simplified_profile.stats.followers_count / 100) *
+            Math.random() *
+            5;
+          bValue =
+            (b.simplified_profile.stats.followers_count / 100) *
+            Math.random() *
+            5;
+          break;
+        case "category":
+          aValue = a.simplified_profile.business_info?.category_name || "";
+          bValue = b.simplified_profile.business_info?.category_name || "";
+          break;
+        case "username":
+          aValue = a.simplified_profile.basic_info.username.toLowerCase();
+          bValue = b.simplified_profile.basic_info.username.toLowerCase();
+          break;
         default:
-          return 0
+          return 0;
       }
 
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        const result = aValue.localeCompare(bValue)
-        return sortConfig.order === 'asc' ? result : -result
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        const result = aValue.localeCompare(bValue);
+        return sortConfig.order === "asc" ? result : -result;
       }
 
-      if (aValue < bValue) return sortConfig.order === 'asc' ? -1 : 1
-      if (aValue > bValue) return sortConfig.order === 'asc' ? 1 : -1
-      return 0
-    })
-  }, [profiles, sortConfig])
+      if (aValue < bValue) return sortConfig.order === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortConfig.order === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [profiles, sortConfig]);
 
-  if(isAILoading) {
+  if (isAILoading) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
         <AIInfluencerScrollerLoader />
       </div>
-    )
+    );
   }
 
   if (loading) {
@@ -145,7 +194,7 @@ export function ProfileList({
           </div>
         </CardContent>
       </div>
-    )
+    );
   }
 
   return (
@@ -160,40 +209,40 @@ export function ProfileList({
           {/* Table Header */}
           <div className="bg-white/10 backdrop-blur-sm border-b border-white/10">
             <div className="grid grid-cols-12 gap-4 p-4 text-xs font-semibold text-slate-300 uppercase tracking-wider">
-              <button 
-                onClick={() => handleSort('username')}
+              <button
+                onClick={() => handleSort("username")}
                 className="col-span-5 flex items-center gap-2 hover:text-white transition-colors cursor-pointer text-left"
               >
                 Profile
-                {getSortIcon('username')}
+                {getSortIcon("username")}
               </button>
-              <button 
-                onClick={() => handleSort('followers')}
+              <button
+                onClick={() => handleSort("followers")}
                 className="col-span-1 flex items-center justify-center gap-1 hover:text-white transition-colors cursor-pointer"
               >
                 Followers
-                {getSortIcon('followers')}
+                {getSortIcon("followers")}
               </button>
-              <button 
-                onClick={() => handleSort('posts')}
+              <button
+                onClick={() => handleSort("posts")}
                 className="col-span-1 flex items-center justify-center gap-1 hover:text-white transition-colors cursor-pointer"
               >
                 Posts
-                {getSortIcon('posts')}
+                {getSortIcon("posts")}
               </button>
-              <button 
-                onClick={() => handleSort('engagement')}
+              <button
+                onClick={() => handleSort("engagement")}
                 className="col-span-1 flex items-center justify-center gap-1 hover:text-white transition-colors cursor-pointer"
               >
                 Engagement
-                {getSortIcon('engagement')}
+                {getSortIcon("engagement")}
               </button>
-              <button 
-                onClick={() => handleSort('category')}
+              <button
+                onClick={() => handleSort("category")}
                 className="col-span-3 flex items-center justify-center gap-1 hover:text-white transition-colors cursor-pointer"
               >
                 Category
-                {getSortIcon('category')}
+                {getSortIcon("category")}
               </button>
               <div className="col-span-1 text-center">Action</div>
             </div>
@@ -213,11 +262,17 @@ export function ProfileList({
                     <div className="relative flex-shrink-0">
                       <Avatar className="h-12 w-12 ring-2 ring-white/20 shadow-lg group-hover:ring-white/40 transition-all duration-300">
                         <AvatarImage
-                          src={profile.simplified_profile.basic_info.profile_pic_url || "/placeholder.svg"}
+                          src={
+                            profile?.simplified_profile?.basic_info
+                              ?.profile_pic_url ? proxyUrl(profile?.simplified_profile?.basic_info
+                              ?.profile_pic_url) : "/placeholder.svg"
+                          }
                           alt={profile.simplified_profile.basic_info.username}
                         />
                         <AvatarFallback className="bg-white/20 backdrop-blur-sm text-white font-bold text-sm">
-                          {profile.simplified_profile.basic_info.username.slice(0, 2).toUpperCase()}
+                          {profile.simplified_profile.basic_info.username
+                            .slice(0, 2)
+                            .toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                       {profile.simplified_profile.basic_info.is_verified && (
@@ -238,7 +293,8 @@ export function ProfileList({
                               <Lock className="h-2.5 w-2.5 text-white/80" />
                             </div>
                           )}
-                          {profile.simplified_profile.basic_info.is_business_account && (
+                          {profile.simplified_profile.basic_info
+                            .is_business_account && (
                             <div className="p-0.5 bg-emerald-500/30 backdrop-blur-sm rounded">
                               <Building className="h-2.5 w-2.5 text-emerald-300" />
                             </div>
@@ -257,7 +313,9 @@ export function ProfileList({
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-1 mb-1">
                       <span className="text-white font-medium text-sm">
-                        {formatNumber(profile.simplified_profile.stats.followers_count)}
+                        {formatNumber(
+                          profile.simplified_profile.stats.followers_count
+                        )}
                       </span>
                     </div>
                     <span className="text-slate-400 text-xs">followers</span>
@@ -269,7 +327,9 @@ export function ProfileList({
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-1 mb-1">
                       <span className="text-white font-medium text-sm">
-                        {formatNumber(profile.simplified_profile.stats.posts_count)}
+                        {formatNumber(
+                          profile.simplified_profile.stats.posts_count
+                        )}
                       </span>
                     </div>
                     <span className="text-slate-400 text-xs">posts</span>
@@ -281,11 +341,11 @@ export function ProfileList({
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-1 mb-1">
                       <span className="text-white font-medium text-sm">
-                        {
-                          profile.simplified_profile.stats?.engagement_rate
-                            ? profile.simplified_profile.stats?.engagement_rate.toFixed(1)
-                            : "-"
-                        }
+                        {profile.simplified_profile.stats?.engagement_rate
+                          ? profile.simplified_profile.stats?.engagement_rate.toFixed(
+                              1
+                            )
+                          : "-"}
                         {/* {((profile.simplified_profile.stats.followers_count / 100) * Math.random() * 5).toFixed(1)}% */}
                       </span>
                     </div>
@@ -296,18 +356,18 @@ export function ProfileList({
                 {/* Category Column */}
                 <div className="col-span-3 text-center text-xs">
                   {profile.simplified_profile.business_info?.category_name ? (
-                     profile.simplified_profile.business_info.category_name
+                    profile.simplified_profile.business_info.category_name
                   ) : (
                     <span className="text-slate-500 text-xs">-</span>
                   )}
                 </div>
                 <div className="col-span-1">
-                     <Badge 
-                     variant="outline" 
-                     className="bg-gradient-to-r from-amber-400/20 to-orange-500/20 border-amber-400/50 text-amber-200 backdrop-blur-sm shadow-lg text-xs px-2 py-1"
-                    >
-                      Show
-                    </Badge>
+                  <Badge
+                    variant="outline"
+                    className="bg-gradient-to-r from-amber-400/20 to-orange-500/20 border-amber-400/50 text-amber-200 backdrop-blur-sm shadow-lg text-xs px-2 py-1"
+                  >
+                    Show
+                  </Badge>
                 </div>
               </div>
             ))}
@@ -352,5 +412,5 @@ export function ProfileList({
         )}
       </CardContent>
     </div>
-  )
+  );
 }

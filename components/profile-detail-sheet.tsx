@@ -32,6 +32,8 @@ import {
   TrendingUp,
   TrendingDown,
   Info,
+  Link,
+  LinkIcon,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -59,6 +61,20 @@ export function ProfileDetailSheet({
   const formatDate = (timestamp: number) => {
     return new Date(timestamp * 1000).toLocaleDateString();
   };
+
+  function isImageUrl(url: string) {
+    return (
+      typeof url === "string" &&
+      /\.(jpg|jpeg|png|gif|bmp|webp|svg)(\?|$)/i.test(url)
+    );
+  }
+
+  function isVideoUrl(url: string) {
+    return (
+      typeof url === "string" &&
+      /\.(mp4|webm|ogg|avi|mov|wmv|flv|mkv)(\?|$)/i.test(url)
+    );
+  }
 
   const getProxiedImageUrl = (value: string) => {
     const encodedUrl = encodeURIComponent(value);
@@ -120,8 +136,8 @@ export function ProfileDetailSheet({
             <Avatar className="h-16 w-16">
               <AvatarImage
                 src={
-                  profile?.simplified_profile?.basic_info?.profile_pic_url_hd ||
-                  profile?.simplified_profile?.basic_info.profile_pic_url
+                  getProxiedImageUrl(profile?.simplified_profile?.basic_info?.profile_pic_url)
+                  || '/placeholder.svg'
                 }
                 alt={profile?.simplified_profile?.basic_info.username}
               />
@@ -131,6 +147,7 @@ export function ProfileDetailSheet({
                   .toUpperCase()}
               </AvatarFallback>
             </Avatar>
+
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <SheetTitle className="text-white">
@@ -140,6 +157,16 @@ export function ProfileDetailSheet({
                 {profile?.simplified_profile?.basic_info?.is_verified && (
                   <Verified className="h-5 w-5 text-yellow-500" />
                 )}
+                {
+                  <a
+                    href={`https://www.instagram.com/${profile?.simplified_profile?.basic_info.username}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:underline"
+                  >
+                    <LinkIcon className="h-4 w-4 inline-block mr-1" />
+                  </a>
+                }
                 {profile?.simplified_profile?.basic_info?.is_private && (
                   <Lock className="h-5 w-5 text-gray-400" />
                 )}
@@ -481,21 +508,34 @@ export function ProfileDetailSheet({
               </CardHeader>
               <CardContent className="space-y-3">
                 {profile?.simplified_profile?.media_info.timeline_media.posts_sample
-                  .slice(0, 3)
+                  .slice(0, 5)
                   .map((post) => (
                     <div
                       key={post.id}
                       className="flex items-center gap-3 p-3 border-b border-gray-700"
                     >
-                      <img
-                        src={
-                          // getProxiedImageUrl(post.media_link) ||
-                          // post.media_link ||
-                          "/placeholder.svg"
-                        }
-                        alt="Post"
-                        className="w-12 h-12 rounded object-cover"
-                      />
+                      {isImageUrl(post.media_link) ? (
+                        <img
+                          src={
+                            getProxiedImageUrl(post.media_link) ||
+                            post.media_link ||
+                            "/placeholder.svg"
+                          }
+                          alt="Post"
+                          className="w-12 h-12 rounded object-cover"
+                        />
+                      ) : (
+                        <video
+                          src={
+                            getProxiedImageUrl(post.media_link) ||
+                            post.media_link ||
+                            "/placeholder.svg"
+                          }
+                          controls
+                          className="w-12 h-12 rounded object-cover"
+                        />
+                      )}
+
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           {post.is_video ? (

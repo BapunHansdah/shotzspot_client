@@ -1,3 +1,22 @@
+import {
+  Search,
+  Filter,
+  X,
+  Sparkles,
+  Shield,
+  ShieldCheck,
+  Users,
+  MessageSquare,
+  Tag,
+  User,
+  CheckCircle,
+  XCircle,
+  TrendingUp,
+  Hash,
+  Briefcase,
+  RotateCcw,
+} from "lucide-react";
+
 const categories = [
   "Hindu Temple",
   "Professional Sports Team",
@@ -125,7 +144,81 @@ const categories = [
   "Interest",
   "Animals & Pets",
   "Author",
-  "Bakery"
-]
+  "Bakery",
+];
 
-export default categories
+// Follower ranges
+const followerOptions = [
+  { label: "Any Followers", value: "any", icon: Users },
+  { label: "Less than 1K", min: 0, max: 999, icon: Users },
+  { label: "1K - 10K", min: 1000, max: 9999, icon: Users },
+  { label: "10K - 50K", min: 10000, max: 49999, icon: TrendingUp },
+  { label: "50K - 100K", min: 50000, max: 99999, icon: TrendingUp },
+  { label: "100K - 500K", min: 100000, max: 499999, icon: TrendingUp },
+  { label: "500K+", min: 500000, max: undefined, icon: Sparkles },
+];
+
+// Post ranges
+const postOptions = [
+  { label: "Any Posts", value: "any", icon: MessageSquare },
+  { label: "Less than 10", min: 0, max: 9, icon: MessageSquare },
+  { label: "10 - 50", min: 10, max: 49, icon: MessageSquare },
+  { label: "50 - 100", min: 50, max: 99, icon: Hash },
+  { label: "100 - 500", min: 100, max: 499, icon: Hash },
+  { label: "500+", min: 500, max: undefined, icon: TrendingUp },
+];
+
+const cities = [
+  "Mumbai",
+  "Delhi",
+  "Bangalore",
+  "Hyderabad",
+  "Ahmedabad",
+  "Chennai",
+  "Kolkata",
+  "Surat",
+  "Pune",
+  "Jaipur",
+  "Lucknow",
+  "Kanpur",
+  "Nagpur",
+  "Indore",
+  "Thane",
+  "Bhopal",
+  "Visakhapatnam",
+  "Pimpri-Chinchwad",
+  "Patna",
+  "Vadodara",
+  "Ghaziabad",
+  "Ludhiana",
+  "Agra",
+  "Nashik",
+  "Faridabad",
+  "Meerut",
+  "Rajkot",
+  "Kalyan-Dombivli",
+  "Vasai-Virar",
+  "Varanasi",
+  "Srinagar",
+  "Aurangabad",
+  "Dhanbad",
+  "Amritsar",
+  "Navi Mumbai",
+  "Allahabad",
+  "Ranchi",
+  "Howrah",
+  "Coimbatore",
+  "Jabalpur",
+  "Gwalior",
+  "Vijayawada",
+  "Jodhpur",
+  "Madurai",
+  "Raipur",
+  "Kota",
+  "Chandigarh",
+  "Guwahati",
+  "Solapur",
+  "Hubli-Dharwad",
+];
+
+export { categories, followerOptions, postOptions, cities };

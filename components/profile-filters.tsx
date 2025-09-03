@@ -22,22 +22,11 @@ import {
   TrendingUp,
   Hash,
   Briefcase,
-  RotateCcw
+  RotateCcw,
+  MapPin
 } from "lucide-react"
+import {categories,followerOptions,postOptions,cities } from "@/constants"
 
-// Mock categories for demo
-const categories = [
-  "Technology",
-  "Fashion", 
-  "Food & Cooking",
-  "Travel",
-  "Fitness",
-  "Art & Design",
-  "Music",
-  "Photography",
-  "Business",
-  "Education"
-]
 
 interface FilterParams {
   username?: string
@@ -48,6 +37,7 @@ interface FilterParams {
   min_posts?: number
   max_posts?: number
   category_name?: string
+  city?: string
 }
 
 interface ProfileFiltersProps {
@@ -55,26 +45,6 @@ interface ProfileFiltersProps {
   onClear: () => void
 }
 
-// Follower ranges
-const followerOptions = [
-  { label: "Any Followers", value: "any", icon: Users },
-  { label: "Less than 1K", min: 0, max: 999, icon: Users },
-  { label: "1K - 10K", min: 1000, max: 9999, icon: Users },
-  { label: "10K - 50K", min: 10000, max: 49999, icon: TrendingUp },
-  { label: "50K - 100K", min: 50000, max: 99999, icon: TrendingUp },
-  { label: "100K - 500K", min: 100000, max: 499999, icon: TrendingUp },
-  { label: "500K+", min: 500000, max: undefined, icon: Sparkles },
-]
-
-// Post ranges
-const postOptions = [
-  { label: "Any Posts", value: "any", icon: MessageSquare },
-  { label: "Less than 10", min: 0, max: 9, icon: MessageSquare },
-  { label: "10 - 50", min: 10, max: 49, icon: MessageSquare },
-  { label: "50 - 100", min: 50, max: 99, icon: Hash },
-  { label: "100 - 500", min: 100, max: 499, icon: Hash },
-  { label: "500+", min: 500, max: undefined, icon: TrendingUp },
-]
 
 export function ProfileFilters({ onFilterChange, onClear }: ProfileFiltersProps) {
   const [filters, setFilters] = useState<FilterParams>({})
@@ -157,6 +127,19 @@ export function ProfileFilters({ onFilterChange, onClear }: ProfileFiltersProps)
       newFilters.full_name = value
     }
     
+    setFilters(newFilters)
+    onFilterChange(newFilters)
+  }
+
+  const handleCityChange = (value: string) => {
+    const newFilters: any = { ...filters }
+
+    if (value === "any") {
+      delete newFilters.city
+    } else {
+      newFilters.city = value
+    }
+
     setFilters(newFilters)
     onFilterChange(newFilters)
   }
@@ -358,6 +341,34 @@ export function ProfileFilters({ onFilterChange, onClear }: ProfileFiltersProps)
                   <div className="flex items-center gap-2">
                     <Tag className="h-4 w-4 text-gray-400" />
                     {category}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {/* city filter  */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <MapPin className="h-4 w-4 text-gray-400" />
+            <label className="text-sm text-gray-400">City</label>
+          </div>
+          <Select onValueChange={handleCityChange} value={filters.city || "any"}>
+            <SelectTrigger className="bg-gray-800/50 border-gray-700/50 text-white rounded-lg w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-gray-800 border-gray-700 rounded-lg">
+              <SelectItem value="any">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-gray-400" />
+                  All cities
+                </div>
+              </SelectItem>
+              {cities.map((city) => (
+                <SelectItem key={city} value={city}>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-gray-400" />
+                    {city}
                   </div>
                 </SelectItem>
               ))}
