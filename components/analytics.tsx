@@ -115,7 +115,7 @@ interface AnalyticsData {
 }
 
 // Constants
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://dashboard.shotzspot.com/api";
 const DEFAULT_PROPERTY_ID = "480246328";
 
 const DATE_RANGES = [
@@ -411,7 +411,7 @@ export default function AnalyticsDashboard() {
   return (
     <div className="min-h-screen bg-[#1a1a2e] text-gray-100">
       {/* Decorative Elements */}
-      
+
       <div className="relative z-10 p-6 space-y-6">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
