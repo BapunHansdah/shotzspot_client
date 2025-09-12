@@ -252,7 +252,7 @@ export function ProfileList({
           <div className="flex-1">
             {sortedProfiles.map((profile, index) => (
               <div
-                key={profile._id}
+                key={index}
                 onClick={() => onProfileClick(profile)}
                 className="group grid grid-cols-12 gap-4 items-center p-4 hover:bg-white/5 transition-all duration-200 border-b border-white/5 last:border-b-0 cursor-pointer"
               >

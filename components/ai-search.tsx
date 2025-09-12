@@ -11,7 +11,7 @@ interface AiSearchProps {
   isLoading?: boolean;
 }
 
-const API_BASE_URL = "https://dashboard.shotzspot.com/api";
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 function AiSearch({ onSearchResults, onError, setIsLoading, isLoading  }: AiSearchProps) {
   const [query, setQuery] = useState("");

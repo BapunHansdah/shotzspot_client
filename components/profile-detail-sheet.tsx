@@ -130,7 +130,7 @@ export function ProfileDetailSheet({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="min-w-[700px] text-xs sm:w-[640px]  bg-black border-gray-800 text-white overflow-y-auto">
+      <SheetContent className="min-w-[700px] text-xs sm:w-[640px]  bg-[#1A1A2E] border-gray-800 text-white overflow-y-auto">
         <SheetHeader className="pb-6">
           <div className="flex items-center space-x-4">
             <Avatar className="h-16 w-16">
@@ -184,13 +184,13 @@ export function ProfileDetailSheet({
 
         <div className="space-y-4">
           {/* Stats */}
-          <Card className="bg-black ">
+          <Card className="bg-[#1A1A2E] ">
             <CardHeader>
               <CardTitle className="text-white text-lg">Overview</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-4">
-                <div className="flex items-center justify-between p-2 bg-[#0e0e12] rounded-md">
+                <div className="flex items-center justify-between p-2 bg-[#141424] rounded-md">
                   <div className="flex items-center gap-3">
                     <Users className="h-4 w-4 text-gray-400" />
                     <span className="text-gray-300">Followers</span>
@@ -204,7 +204,7 @@ export function ProfileDetailSheet({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-2 bg-[#0e0e12] rounded-md">
+                <div className="flex items-center justify-between p-2 bg-[#141424] rounded-md">
                   <div className="flex items-center gap-3">
                     <UserPlus className="h-4 w-4 text-gray-400" />
                     <span className="text-gray-300">followings</span>
@@ -218,7 +218,7 @@ export function ProfileDetailSheet({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-2 bg-[#0e0e12] rounded-md">
+                <div className="flex items-center justify-between p-2 bg-[#141424] rounded-md">
                   <div className="flex items-center gap-3">
                     <ImageIcon className="h-4 w-4 text-gray-400" />
                     <span className="text-gray-300">Posts</span>
@@ -237,7 +237,7 @@ export function ProfileDetailSheet({
 
           {/* Engagement Metrics */}
           {metrics && (
-            <Card className="bg-black ">
+            <Card className="bg-[#1A1A2E] ">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-white text-lg">
                   Engagement Analytics
@@ -260,7 +260,7 @@ export function ProfileDetailSheet({
                   </div>
 
                   <div className="grid grid-cols-1 gap-3">
-                    <div className="flex items-center justify-between p-2 bg-[#0e0e12] rounded-md">
+                    <div className="flex items-center justify-between p-2 bg-[#141424] rounded-md">
                       <div className="flex items-center gap-3">
                         <Heart className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Engagement Rate</span>
@@ -278,7 +278,7 @@ export function ProfileDetailSheet({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Eye className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">
@@ -290,7 +290,7 @@ export function ProfileDetailSheet({
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Users className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Estimated reach</span>
@@ -300,7 +300,7 @@ export function ProfileDetailSheet({
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Heart className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Average likes</span>
@@ -312,7 +312,7 @@ export function ProfileDetailSheet({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <MessageCircle className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Average comments</span>
@@ -332,7 +332,7 @@ export function ProfileDetailSheet({
                   </div>
 
                   <div className="grid grid-cols-1 gap-3">
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Play className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">
@@ -344,7 +344,7 @@ export function ProfileDetailSheet({
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Heart className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Engagement rate</span>
@@ -356,7 +356,7 @@ export function ProfileDetailSheet({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#0e0e12]">
+                    <div className="flex items-center justify-between rounded-xl p-2 bg-[#141424]">
                       <div className="flex items-center gap-3">
                         <Share className="h-4 w-4 text-gray-400" />
                         <span className="text-gray-300">Average shares</span>
@@ -413,7 +413,7 @@ export function ProfileDetailSheet({
 
           {/* Biography */}
           {profile?.simplified_profile?.basic_info.biography && (
-            <Card className="bg-black ">
+            <Card className="bg-[#1A1A2E] ">
               <CardHeader>
                 <CardTitle className="text-white text-lg">Biography</CardTitle>
               </CardHeader>
@@ -427,7 +427,7 @@ export function ProfileDetailSheet({
 
           {/* Business Info */}
           {profile?.simplified_profile?.business_info && (
-            <Card className="bg-black ">
+            <Card className="bg-[#1A1A2E] ">
               <CardHeader>
                 <CardTitle className="text-white text-lg">
                   Business Information
@@ -468,7 +468,7 @@ export function ProfileDetailSheet({
           {/* Bio Links */}
           {profile?.simplified_profile?.bio_links &&
             profile?.simplified_profile?.bio_links.length > 0 && (
-              <Card className="bg-black ">
+              <Card className="bg-[#1A1A2E] ">
                 <CardHeader>
                   <CardTitle className="text-white text-lg">Links</CardTitle>
                 </CardHeader>
@@ -500,7 +500,7 @@ export function ProfileDetailSheet({
           {/* Recent Posts */}
           {profile?.simplified_profile?.media_info?.timeline_media
             ?.posts_sample && (
-            <Card className="bg-black ">
+            <Card className="bg-[#1A1A2E] ">
               <CardHeader>
                 <CardTitle className="text-white text-lg">
                   Recent Posts
@@ -560,7 +560,7 @@ export function ProfileDetailSheet({
 
           {/* Metadata */}
           {profile.metadata && (
-            <Card className="bg-black ">
+            <Card className="bg-[#1A1A2E] ">
               <CardHeader>
                 <CardTitle className="text-white text-lg">Metadata</CardTitle>
               </CardHeader>

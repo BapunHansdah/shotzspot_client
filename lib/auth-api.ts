@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://dashboard.shotzspot.com/api"
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`
 
 export interface LoginCredentials {
   email: string
